@@ -3,6 +3,9 @@ package src;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
+
+import java.io.*;
+
 import javafx.animation.AnimationTimer;
 
 public class Archery extends Application {
@@ -11,7 +14,7 @@ public class Archery extends Application {
 	public void start(Stage window) {
 		// Initialise Scene Manager
 		SceneManager sm = new SceneManager(window);
-		sm.setTitle("Super Mario");
+		sm.setTitle("Archery");
 		sm.setDimension(1000.0d, 800.0d);
 
 		// Initialise MainMenu
@@ -19,6 +22,15 @@ public class Archery extends Application {
 
 		// set scene to MainMenu
 		sm.setScene(mainMenu);
+
+		// Load Saved Game State (if any)
+		File file = new File("gameState.dat");
+		try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file));) {
+			GameState gs = (GameState) ois.readObject();
+			sm.setHighestScore(gs.getHighestScore());
+		} catch (Exception e) {
+			// ignore if there is no saved game state
+		}
 
 		// Game Loop
 		new AnimationTimer() {

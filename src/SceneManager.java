@@ -12,13 +12,13 @@ public class SceneManager {
 	private double width, height;
 
 	/*
-	 * Delta time Delta time is the time between current frame and last frame
+	 * Delta time - Delta time is the time between current frame and last frame
 	 * Multiply any kinds of movements with delta time to make - the game FRAME
 	 * INDEPENDENT - or Hardware independent
 	 */
 	private long lastTime;
 	private double deltaTime;
-	
+
 	/*
 	 * Scores
 	 */
@@ -84,15 +84,23 @@ public class SceneManager {
 		return score;
 	}
 
+	public void addScore(int score) {
+		this.score += score;
+
+		if (this.score > highestScore) {
+			highestScore = this.score;
+		}
+	}
+
 	public void setScore(int score) {
 		this.score = score;
-		
-		if (score > highestScore) {
-			highestScore = score;
-		}
 	}
 
 	public int getHighestScore() {
 		return highestScore;
+	}
+	
+	public void setHighestScore(int score) {
+		highestScore = score;
 	}
 }
